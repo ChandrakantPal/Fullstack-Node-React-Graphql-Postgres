@@ -1,3 +1,5 @@
+#import "../fragments/RegularUser.graphql"
+
 mutation Register($username: String!, $password: String!) {
   register(options: { username: $username, password: $password }) {
     errors {
@@ -5,10 +7,7 @@ mutation Register($username: String!, $password: String!) {
       message
     }
     user {
-      id
-      createdAt
-      updatedAt
-      username
+      ...RegularUser
     }
   }
 }
