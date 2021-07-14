@@ -12,7 +12,7 @@ import {
 import argon2 from 'argon2'
 import { COOKIE_NAME } from '../constants'
 import { UsernamePasswordInput } from './UsernamePasswordInput'
-import { validateRegister } from 'src/util/ValidateRegister'
+import { validateRegister } from '../util/ValidateRegister'
 @ObjectType()
 class FieldError {
   @Field()
@@ -55,7 +55,10 @@ export class UserResolver {
     @Arg('options') options: UsernamePasswordInput,
     @Ctx() { em, req }: MyContext
   ): Promise<UserResponse> {
-    validateRegister(options)
+    const response = validateRegister(options)
+    if (response) {
+      return response
+    }
     const hashedPassword = await argon2.hash(options.password)
     const user = em.create(User, {
       username: options.username,
