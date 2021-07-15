@@ -13,6 +13,7 @@ import argon2 from 'argon2'
 import { COOKIE_NAME } from '../constants'
 import { UsernamePasswordInput } from './UsernamePasswordInput'
 import { validateRegister } from '../util/ValidateRegister'
+import { sendEmail } from '../util/sendEmail'
 @ObjectType()
 class FieldError {
   @Field()
@@ -35,7 +36,17 @@ class UserResponse {
 export class UserResolver {
   @Mutation(() => Boolean)
   async forgotPassword(@Arg('email') email: string, @Ctx() { em }: MyContext) {
-    // const user = await em.findOne(User, {email})
+    const user = await em.findOne(User, { email })
+    if (!user) {
+      // the email is not in db
+      return true
+    }
+    const token = 'mbhbhjnjjbbyyutydrd'
+    await sendEmail(
+      email,
+      `<a href="http://localhost:3000/change-password/${token}">Reset Password</a>`
+    )
+
     return true
   }
 
