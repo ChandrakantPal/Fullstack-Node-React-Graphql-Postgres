@@ -1,6 +1,4 @@
 import { InputType, Field } from 'type-graphql'
-
-// import { EntityManager } from '@mikro-orm/postgresql'
 @InputType()
 export class UsernamePasswordInput {
   @Field()
