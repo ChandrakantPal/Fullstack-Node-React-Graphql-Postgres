@@ -15,6 +15,7 @@ import { usePostsQuery } from '../generated/graphql'
 import { createUrqlClient } from '../utils/createUrqlClient'
 import NextLink from 'next/link'
 import { useState } from 'react'
+import UpdootSection from '../components/UpdootSection'
 
 const Index = () => {
   const [variables, setVariables] = useState({
@@ -42,24 +43,7 @@ const Index = () => {
         <Stack spacing={8}>
           {data!.posts?.posts?.map((post) => (
             <Flex key={post.id} p={5} shadow="md" borderWidth="1px">
-              <Flex
-                direction="column"
-                justifyContent="center"
-                alignItems="center"
-                mr={4}
-              >
-                <IconButton
-                  aria-label="up vote"
-                  fontSize="24"
-                  icon={<ChevronUpIcon />}
-                />
-                {post.points}
-                <IconButton
-                  aria-label="down vote"
-                  fontSize="24"
-                  icon={<ChevronDownIcon />}
-                />
-              </Flex>
+              <UpdootSection post={post} />
               <Box>
                 <Heading fontSize="xl">{post.title}</Heading>
                 <Text>posted by {post.creator.username}</Text>
