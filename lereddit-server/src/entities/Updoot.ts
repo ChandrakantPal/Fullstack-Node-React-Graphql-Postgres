@@ -1,5 +1,4 @@
 import { BaseEntity, Column, Entity, ManyToOne, PrimaryColumn } from 'typeorm'
-import { Field, ObjectType } from 'type-graphql'
 import { User } from './User'
 import { Post } from './Post'
 
