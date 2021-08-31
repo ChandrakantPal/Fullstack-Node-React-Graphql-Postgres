@@ -6,16 +6,16 @@ import { useRouter } from 'next/router'
 
 const Navbar = () => {
   const router = useRouter()
-  const [{ fetching: logoutFetching }, logout] = useLogoutMutation()
-  const [{ data, fetching }] = useMeQuery({
-    pause: isServer(),
+  const [logout, { loading: logoutFetching }] = useLogoutMutation()
+  const { data, loading } = useMeQuery({
+    skip: isServer(),
   })
 
   //   console.log({ data })
 
   let body = null
 
-  if (fetching) {
+  if (loading) {
     // data is loading
     body = null
   } else if (!data?.me) {
