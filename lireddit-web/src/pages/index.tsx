@@ -14,16 +14,16 @@ const Index = () => {
     cursor: null as null | string,
   })
 
-  const [{ data, fetching }] = usePostsQuery({
+  const { data, loading } = usePostsQuery({
     variables,
   })
 
-  if (!fetching && !data) {
+  if (!loading && !data) {
     return <div>You got query failed for some reason</div>
   }
   return (
     <Layout>
-      {!data && fetching ? (
+      {!data && loading ? (
         <div>Loading...</div>
       ) : (
         <Stack spacing={8}>
@@ -64,7 +64,7 @@ const Index = () => {
                 cursor: data.posts.posts[data.posts.posts.length - 1].createdAt,
               })
             }}
-            isLoading={fetching}
+            isLoading={loading}
             m="auto"
             my={8}
           >
@@ -76,4 +76,4 @@ const Index = () => {
   )
 }
 
-export default withUrqlClient(createUrqlClient, { ssr: true })(Index)
+export default Index
