@@ -3,10 +3,9 @@ import { Formik, Form } from 'formik'
 import InputField from '../components/InputField'
 import { useCreatePostMutation } from '../generated/graphql'
 import { useRouter } from 'next/router'
-import { withUrqlClient } from 'next-urql'
-import { createUrqlClient } from '../utils/createUrqlClient'
 import Layout from '../components/Layout'
 import { useIsAuth } from '../utils/useIsAuth'
+import { withApollo } from '../utils/withApollo'
 
 const CreatePost = () => {
   const router = useRouter()
@@ -49,4 +48,4 @@ const CreatePost = () => {
   )
 }
 
-export default CreatePost
+export default withApollo({ ssr: false })(CreatePost)
