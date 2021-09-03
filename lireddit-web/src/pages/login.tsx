@@ -6,9 +6,8 @@ import { Box, Button, Flex, Link } from '@chakra-ui/react'
 import { useLoginMutation } from '../generated/graphql'
 import { toErrorMap } from '../utils/toErrorMap'
 import { useRouter } from 'next/router'
-import { withUrqlClient } from 'next-urql'
-import { createUrqlClient } from '../utils/createUrqlClient'
 import NextLink from 'next/link'
+import { withApollo } from '../utils/withApollo'
 
 const Login = () => {
   const router = useRouter()
@@ -66,4 +65,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default withApollo({ ssr: false })(Login)
