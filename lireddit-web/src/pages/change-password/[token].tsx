@@ -1,15 +1,14 @@
 import { Box, Button, Flex, Link } from '@chakra-ui/react'
 import { Formik, Form } from 'formik'
 import { NextPage } from 'next'
-import { withUrqlClient } from 'next-urql'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import InputField from '../../components/InputField'
 import Wrapper from '../../components/Wrapper'
 import { useChangePasswordMutation } from '../../generated/graphql'
-import { createUrqlClient } from '../../utils/createUrqlClient'
 import { toErrorMap } from '../../utils/toErrorMap'
 import NextLink from 'next/link'
+import { withApollo } from '../../utils/withApollo'
 
 const ChangePassword: NextPage = () => {
   const router = useRouter()
@@ -74,4 +73,4 @@ const ChangePassword: NextPage = () => {
   )
 }
 
-export default ChangePassword
+export default withApollo({ ssr: false })(ChangePassword)
